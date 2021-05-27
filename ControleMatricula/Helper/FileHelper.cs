@@ -14,6 +14,12 @@ namespace ControleMatricula.Helper
             try
             {
                 var fullPath = $@"{path}\{fileName}";
+
+                if (!Directory.Exists($@"{path}"))
+                {
+                    Directory.CreateDirectory(fullPath);
+                }
+
                 using (StreamWriter sw = new StreamWriter(fullPath))
                 {
                     for (int i = 0; i < lstContent.Count; i++)
@@ -33,6 +39,7 @@ namespace ControleMatricula.Helper
             try
             {
                 var fullPath = $@"{path}\{fileName}";
+
                 using (StreamReader sr = File.OpenText(fullPath))
                 {
                     List<string> lst = new List<string>();

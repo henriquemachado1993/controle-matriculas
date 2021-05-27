@@ -6,36 +6,35 @@ namespace ControleMatricula
 {
     public class Program
     {
-        const string fileNameMatriculasSemDv = "inscriptions-without-digit-verifying.txt";
-        const string fileNameMatriculasComDv = "inscriptions-with-digit-verifying.txt";
-        const string fileNameMatriculasVerificadas = "verified-subscriptions.txt";
+        const string fileNameInscriptionsWithoutDigitVerifying = "inscriptions-without-digit-verifying.txt";
+        const string fileNameInscriptionsWithDigitVerifying = "inscriptions-with-digit-verifying.txt";
+        const string fileNameVerifiedSubscriptions = "verified-subscriptions.txt";
 
         public static void Main(string[] args)
         {
             try
             {
-                Console.WriteLine("============== Aperte 'Enter' para começar o processamento ==============");
+                Console.WriteLine("============== Press 'Enter' to start processing ==============");
                 Console.WriteLine("");
                 Console.ReadKey();
 
                 var subscritionService = BuildService.CreateSubscritionService();
 
-                // Grava matrículas iniciais sem dígito verificador
-                Console.WriteLine("Gravando matrículas inciais...");
-                List<string> lstMatriculasInicial = new List<string>() { "9876", "9992", "1234", "2225", "8882", "9875" };
-                subscritionService.SaveSubscriptions(lstMatriculasInicial, fileNameMatriculasSemDv);
+                Console.WriteLine("Recording initial subscriptions...");
+                var initialSubscriptions = new List<string>() { "9876", "9992", "1234", "2225", "8882", "9875" };
+                subscritionService.SaveSubscriptions(initialSubscriptions, fileNameInscriptionsWithoutDigitVerifying);
 
-                // Ler matrículas sem dígito verificador e processa
-                Console.WriteLine("Processando matrículas sem dígito verificador...");
-                List<string> lstMatriculasSemDv = subscritionService.ReadSubscription(fileNameMatriculasSemDv);
-                List<string> lstMatriculasComDv = subscritionService.ProcessSubscriptionsWithoutVerifyingDigit(lstMatriculasSemDv);
-                subscritionService.SaveSubscriptions(lstMatriculasComDv, fileNameMatriculasComDv);
+                // Read entries without a check digit and process
+                Console.WriteLine("Processing subscriptions without a check digit...");
+                var subscriptionsWithoutVd = subscritionService.ReadSubscriptions(fileNameInscriptionsWithoutDigitVerifying);
+                var subscriptionsWithVd = subscritionService.ProcessSubscriptionsWithoutVerifyingDigit(subscriptionsWithoutVd);
+                subscritionService.SaveSubscriptions(subscriptionsWithVd, fileNameInscriptionsWithDigitVerifying);
 
-                // Ler e verifica as matrículas com dígito verificador processadas anteriormente
-                Console.WriteLine("Verificando matrículas processadas...");
-                List<string> lstMatriculasParaVerificar = subscritionService.ReadSubscription(fileNameMatriculasComDv);
-                List<string> lstMatriculasVerificadas = subscritionService.VerifySubscriptions(lstMatriculasParaVerificar);
-                subscritionService.SaveSubscriptions(lstMatriculasVerificadas, fileNameMatriculasVerificadas);
+                // Read and verify previously processed check digit entries
+                Console.WriteLine("Checking processed subscriptions...");
+                var subscriptionsToCheck = subscritionService.ReadSubscriptions(fileNameInscriptionsWithDigitVerifying);
+                var verifiedSubscriptions = subscritionService.VerifySubscriptions(subscriptionsToCheck);
+                subscritionService.SaveSubscriptions(verifiedSubscriptions, fileNameVerifiedSubscriptions);
 
                 Console.ReadKey();
             }

@@ -28,7 +28,7 @@ namespace ControleMatricula.Service
             return subscriptionsVd;
         }
 
-        public List<string> ReadSubscription(string fileName)
+        public List<string> ReadSubscriptions(string fileName)
         {
             return FileHelper.Read(fileName, path);
         }
