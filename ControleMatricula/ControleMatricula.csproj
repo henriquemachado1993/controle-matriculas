@@ -43,9 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileUtil.cs" />
+    <Compile Include="BuildService.cs" />
+    <Compile Include="Contracts\ISubscriptionService.cs" />
+    <Compile Include="Helper\FileHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\SubscriptionService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
