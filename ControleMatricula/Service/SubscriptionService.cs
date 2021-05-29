@@ -3,14 +3,12 @@ using ControleMatricula.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ControleMatricula.Service
 {
     public class SubscriptionService : ISubscriptionService
     {
-        const string path = @"c:\temp";
+        private const string path = @"c:\temp";
         
         public List<string> ProcessSubscriptionsWithoutVerifyingDigit(List<string> Subscriptions)
         {
