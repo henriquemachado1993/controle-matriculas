@@ -1,4 +1,4 @@
-# controle-matriculas (DESAFIO)
+# Controle de matrículas (DESAFIO)
   Você deve desenvolver um aplicativo (em C# ou Java) que calcule o dígito verificador para uma série de matrículas da empresa XPTO.
   
   Data uma matrícula 0000 a 9999 o cálculo do dígito verificador deverá ser feito multiplicando o primeiro número à esquerda por 5, o segundo por 4, o terceiro por 3 e o quarto por 2. O resultado parcial de cada posição deve ser somado e o resultado final da soma deverá ser divido por 16. O resto da divisão deverá ser convertido para hexadecimal, sendo este então o dígito verificador.
